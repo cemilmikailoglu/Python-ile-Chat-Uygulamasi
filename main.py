@@ -3,10 +3,10 @@ import socket
 import threading
 import time
 # * İP ADRESİ MANUEL OLARAK DEĞİŞTİRİLMELİDİR SERVER AÇILDIĞINDA VERİLEN İP ÜZERİNDEN AÇILMALIDIR
-HOST = '192.168.1.41' 
+HOST = '192.168.220.89'
 PORT = 8080
 
-def connect():
+def connect(even=None):
     global s
     global err1
     
@@ -51,6 +51,7 @@ def connect():
     message_frame.pack(padx=10, pady=10)
     message_label.pack(side=tk.LEFT)
     message_entry.pack(side=tk.LEFT)
+    message_entry.bind('<Return>',send_message)
     send_button.pack(side=tk.LEFT)
 
 
@@ -71,7 +72,7 @@ def listen():
         except:
             break
 
-def send_message():
+def send_message(event=None):
     message = message_entry.get()
     if message != "":
         kullaniciadi = user_name_entry.get()
@@ -94,7 +95,9 @@ user_name_label.pack(side=tk.LEFT)
 user_name_entry = tk.Entry(user_name_frame, width=15)   
 user_name_entry.pack(side=tk.TOP)
 connect_button = tk.Button(root, text="Bağlan", command=connect)
-connect_button.pack()   
+connect_button.pack()
+user_name_entry.bind('<Return>',connect)
+
 
 chat_frame = tk.Frame(root)
 chat_label = tk.Label(chat_frame, text="Sohbet:")
@@ -107,12 +110,13 @@ message_frame = tk.Frame(root)
 
 message_label = tk.Label(message_frame,text="Mesaj:")
 
-message_entry=tk.Entry(message_frame,width=45) 
+message_entry=tk.Entry(message_frame,width=45)
 imagem = tk.PhotoImage(file="image-removebg-preview (3).png")
 imagem = imagem.subsample(13, 13)
 send_button=tk.Button(message_frame,image=imagem,command=send_message,border=0,width=40,height=40) 
 
 def on_close():
+    print("closed")
     s.close()
     root.quit()
     
