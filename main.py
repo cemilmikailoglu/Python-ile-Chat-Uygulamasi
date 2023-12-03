@@ -4,7 +4,7 @@ import threading
 import time
 
 # * İP ADRESİ MANUEL OLARAK DEĞİŞTİRİLMELİDİR SERVER AÇILDIĞINDA VERİLEN İP ÜZERİNDEN AÇILMALIDIR
-HOST = '192.168.51.2'
+HOST = '192.168.1.1'
 PORT = 8080
 
 def connect(even=None):
